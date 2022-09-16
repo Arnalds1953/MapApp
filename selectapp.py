@@ -6,7 +6,7 @@ import json
 # emojis: https://www.webfx.com/tools/emoji-cheat-sheet/
 st.set_page_config(page_title="Select Sales Dashboard", page_icon=":bar_chart:", layout="wide")
 
-df1 = pd.read_excel('D:/Streamlit/data/kadehome.xlsx')
+df1 = pd.read_excel('data/kadehome.xlsx')
 # df["hour"] = pd.to_datetime(df["Time"], format="%H:%M:%S").dt.hour
 df = df1.dropna()
 df.head(3)
@@ -48,9 +48,9 @@ fig_product_sales.update_layout(
 st.plotly_chart(fig_product_sales,use_container_width=True)
 
 
-file = open('D:/Streamlit/data/features.geojson','r',encoding='utf-8')
+file = open('data/features.geojson','r',encoding='utf-8')
 counties = json.load(file)
-df = pd.read_excel('D:/Streamlit/data/US销售数据.xlsx')
+df = pd.read_excel('data/US销售数据.xlsx')
 px.set_mapbox_access_token(token='pk.eyJ1IjoiYXJuYWxkczE5NTMiLCJhIjoiY2w4NDg1NXFrMGJxNzN5cGNhMXJsd3dvaSJ9.ToNjfVJdez4EspCamoUNOA')
 fig = px.choropleth_mapbox(df, geojson=counties, locations='地图名称', color='订单数量',
                            color_continuous_scale="Viridis",
