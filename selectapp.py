@@ -51,11 +51,10 @@ st.plotly_chart(fig_product_sales,use_container_width=True)
 file = open('data/features.geojson','r',encoding='utf-8')
 counties = json.load(file)
 df = pd.read_excel('data/US销售数据.xlsx')
-px.set_mapbox_access_token(token='pk.eyJ1IjoiYXJuYWxkczE5NTMiLCJhIjoiY2w4NDg1NXFrMGJxNzN5cGNhMXJsd3dvaSJ9.ToNjfVJdez4EspCamoUNOA')
 fig = px.choropleth_mapbox(df, geojson=counties, locations='地图名称', color='订单数量',
                            color_continuous_scale="Viridis",
                            range_color=(0, 200),
-                           mapbox_style="light",
+                           mapbox_style="open-street-map",
                            zoom=3, center = {"lat": 37.0902, "lon": -95.7129},
                            opacity=0.5,
                            labels={'unemp':'unemployment rate'}
