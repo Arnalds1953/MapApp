@@ -3,10 +3,15 @@ import plotly.express as px   # pip install plotly-express
 import streamlit as st        # pip install streamlit
 import json
 
-# emojis: https://www.webfx.com/tools/emoji-cheat-sheet/
 st.set_page_config(page_title="Select Sales Dashboard", page_icon=":bar_chart:", layout="wide")
 
-df1 = pd.read_excel('data/kadehome.xlsx')
+### 本地替换 H:/Python/GitHub/MapApp/
+Path1 = 'data/kadehome.xlsx'
+Path2 = 'data/features.geojson'
+Path3 = 'data/US销售数据.xlsx'
+
+
+df1 = pd.read_excel(Path1)
 # df["hour"] = pd.to_datetime(df["Time"], format="%H:%M:%S").dt.hour
 df = df1.dropna()
 df.head(3)
@@ -48,13 +53,14 @@ fig_product_sales.update_layout(
 st.plotly_chart(fig_product_sales,use_container_width=True)
 
 
-file = open('data/features.geojson','r',encoding='utf-8')
+file = open(Path2,'r',encoding='utf-8')
 counties = json.load(file)
-df = pd.read_excel('data/US销售数据.xlsx')
+df = pd.read_excel(Path3)
+px.set_mapbox_access_token(token=st.secrets["token"])
 fig = px.choropleth_mapbox(df, geojson=counties, locations='地图名称', color='订单数量',
                            color_continuous_scale="Viridis",
                            range_color=(0, 200),
-                           mapbox_style="open-street-map",
+                           mapbox_style="streets",
                            zoom=3, center = {"lat": 37.0902, "lon": -95.7129},
                            opacity=0.5,
                            labels={'unemp':'unemployment rate'}
